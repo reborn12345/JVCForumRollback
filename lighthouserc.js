@@ -1,15 +1,17 @@
+
+const { exec } = require('child_process');
+
 module.exports = {
   ci: {
     collect: {
       url: ['https://www.jeuxvideo.com/forums.htm'],
       numberOfRuns: 3,
       settings: {
-        preAudits: [
+        chromeFlags: '--headless',
+        // Configure ici pour utiliser le script d'acceptation des cookies
+        postAudits: [
           {
-            script: `
-              // Ton code de userscript ici
-              console.log('Userscript injecté et exécuté');
-            `,
+            script: 'node accept-cookies.js', // Appeler le script d'acceptation des cookies
           },
         ],
       },
