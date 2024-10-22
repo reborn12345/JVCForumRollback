@@ -1,5 +1,4 @@
-
-const { exec } = require('child_process');
+const fs = require('fs');
 
 module.exports = {
   ci: {
@@ -8,10 +7,16 @@ module.exports = {
       numberOfRuns: 3,
       settings: {
         chromeFlags: '--headless',
-        // Configure ici pour utiliser le script d'acceptation des cookies
         postAudits: [
           {
-            script: 'node accept-cookies.js', // Appeler le script d'acceptation des cookies
+            script: async (page) => {
+              const scriptContent = fs.readFileSync('my-userscript.js', 'utf8');
+              await page.evaluate(script => {
+                const scriptEl = document.createElement('script');
+                scriptEl.textContent = script;
+                document.body.appendChild(scriptEl);
+              }, scriptContent);
+            },
           },
         ],
       },
