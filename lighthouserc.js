@@ -1,17 +1,16 @@
+const { exec } = require('child_process');
+
 module.exports = {
   ci: {
     collect: {
-      url: ['https://www.jeuxvideo.com/forums.htm'],  // Change l'URL par celle que tu veux tester
+      url: ['https://www.jeuxvideo.com/forums.htm'],
       numberOfRuns: 3,
-      // Ajoute une étape avant l'audit
       settings: {
-        // Configurer les actions à exécuter avant l'audit
-        preAudits: [
+        chromeFlags: '--headless',
+        // Configure ici pour utiliser le script d'acceptation des cookies
+        postAudits: [
           {
-            script: `
-              const buttonSelector = '.jad_cmp_paywall_button-cookies';
-              document.querySelector(buttonSelector)?.click();
-            `,
+            script: 'node accept-cookies.js', // Appeler le script d'acceptation des cookies
           },
         ],
       },
