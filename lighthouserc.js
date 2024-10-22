@@ -5,12 +5,12 @@ module.exports = {
       numberOfRuns: 3,
       // Ajoute une étape avant l'audit
       settings: {
-        emulatedFormFactor: 'desktop',
+        // Configurer les actions à exécuter avant l'audit
         preAudits: [
           {
-            // Un script pour accepter les cookies
             script: `
-              document.querySelector('button.accepter-cookies').click();
+              const buttonSelector = '.jad_cmp_paywall_button-cookies';
+              document.querySelector(buttonSelector)?.click();
             `,
           },
         ],
