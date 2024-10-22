@@ -14,6 +14,7 @@
 (function() {
     'use strict';
 
+    // POO
     class JVCForumRollback {
         constructor() {
             this.links = [];
